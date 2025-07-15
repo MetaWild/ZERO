@@ -55,7 +55,7 @@ function CameraController({
     if (selectedPart?.name && zoomTargets[selectedPart.name]) {
       const target = zoomTargets[selectedPart.name];
       return {
-        cameraPos: target.clone().add(new THREE.Vector3(0, 0, 8)), // or whatever offset you want
+        cameraPos: target.clone().add(new THREE.Vector3(0, 0, 8)),
         target: target.clone(),
       };
     } else {
@@ -68,7 +68,7 @@ function CameraController({
     cameraTargetPos.current.copy(positions.cameraPos);
     controlsTargetPos.current.copy(positions.target);
     animatingRef.current = true;
-    setTransitioning(true); // mark as animating globally!
+    setTransitioning(true);
     setZoomDone(false);
     if (controls) controls.enabled = false;
   }, [getPositions, setZoomDone, setTransitioning, controls]);
@@ -93,7 +93,7 @@ function CameraController({
 
     if (cameraReached && targetReached) {
       camera.position.copy(cameraTargetPos.current);
-      controls.target.copy(controlsTargetPos.current); // <--- This is key!
+      controls.target.copy(controlsTargetPos.current);
       controls.update();
       animatingRef.current = false;
       setZoomDone(true);
@@ -119,7 +119,7 @@ function App() {
   const [focusedSystem, setFocusedSystem] = useState(null);
   const [lastSelectedLabel, setLastSelectedLabel] = useState(null);
   const [labelHistory, setLabelHistory] = useState([]);
-  const [transitioning, setTransitioning] = useState(false); // new state
+  const [transitioning, setTransitioning] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
   const controlsRef = useRef();
 

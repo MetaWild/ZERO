@@ -5,7 +5,9 @@ export function IntroModule({ onContinue }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   return (
@@ -168,12 +170,14 @@ export function IntroModule({ onContinue }) {
               language, body, and network, as detailed below:
             </p>
 
-            <ol style={{
-              margin: "0 0 0 1.5em",
-              padding: 0,
-              fontSize: "clamp(0.12rem, 1vw, 0.85rem)",
-              lineHeight: 1.44,
-            }}>
+            <ol
+              style={{
+                margin: "0 0 0 1.5em",
+                padding: 0,
+                fontSize: "clamp(0.12rem, 1vw, 0.85rem)",
+                lineHeight: 1.44,
+              }}
+            >
               <li>
                 <strong>Am I?</strong> – Existence – The Body – ZERO
               </li>
@@ -208,8 +212,8 @@ export function IntroModule({ onContinue }) {
                 ZDAO
               </li>
               <li>
-                <strong>Am I enough?</strong> – Integration – Digestive
-                System – ZODES
+                <strong>Am I enough?</strong> – Integration – Digestive System –
+                ZODES
               </li>
             </ol>
           </div>

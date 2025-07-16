@@ -80,7 +80,6 @@ export default function UIOverlay({
     if (!isZDAOFocused && isZDAO2D) setIsZDAO2D(false);
   }, [isZDAOFocused]);
 
-  // When going back, always close modal and update label as needed
   function handleBack() {
     setModalOpen(false);
 
@@ -225,7 +224,7 @@ export default function UIOverlay({
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          background: "none", // Background handled by card for effect
+          background: "none",
         }}
       >
         <div
@@ -420,7 +419,7 @@ export default function UIOverlay({
             bottom: 40,
             left: 40,
             zIndex: 1002,
-            pointerEvents: "none", // so you don't block hovers
+            pointerEvents: "none",
           }}
         >
           <div className="animated-hover-card">
@@ -430,7 +429,6 @@ export default function UIOverlay({
               {hoveredMeta.title}
             </div>
           </div>
-          {/* --- STYLE INJECTION (one time per app, safe here) --- */}
           <style>{`
       .animated-hover-card {
         min-width: 180px;
@@ -663,7 +661,6 @@ export default function UIOverlay({
             border: "1.5px solid #01f4cc",
           }}
         >
-          {/* Use an <img> if you exported as PNG/SVG to public/; or inline SVG/React component! */}
           <img
             src="/ZDAO_Tree.png"
             alt="ZDAO 2D Diagram"
@@ -676,7 +673,6 @@ export default function UIOverlay({
               maxHeight: 700,
             }}
           />
-          {/* <ZDAO2DDiagram style={{ width: "100%", maxWidth: 500 }} /> */}
           <div
             style={{
               color: "#01f4cc",
@@ -685,7 +681,6 @@ export default function UIOverlay({
               opacity: 0.84,
             }}
           >
-            {/* Optional: a little caption, or nothing */}
             <em>ZDAO Structure - 2D View</em>
           </div>
         </div>

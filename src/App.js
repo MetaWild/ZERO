@@ -9,7 +9,6 @@ import { systems } from "./Components/systems";
 import * as THREE from "three";
 
 const zoomTargets = {
-
   head: new THREE.Vector3(0, 5.75, -2.5),
   lefthand: new THREE.Vector3(4, -1, -2.5),
   righthand: new THREE.Vector3(-4, -1, -2.5),

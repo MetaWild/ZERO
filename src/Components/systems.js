@@ -122,7 +122,7 @@ export const systems = {
               "SIGNAL is composed of DAOs — consentual communities — each fully sovereign but interconnected through token-based coordination.",
               "Each community governs how its votes are allocated — reflecting sovereignty and decentralization at every layer.",
               "SIGNAL holds both initiating and restraining power — enabling votes to approve proposals from INITIATION or cancel implementations from INTEGRATION during grace periods.",
-                "In addition, if a predetermined percentage of total network tokens support replacing council members, SIGNAL triggers a full-network recall vote.",
+              "In addition, if a predetermined percentage of total network tokens support replacing council members, SIGNAL triggers a full-network recall vote.",
               "Biological Parallel: The spinal cord reflexively regulates local functions while transmitting crucial signals to the brain. SIGNAL mirrors this role by autonomously managing local decisions and channeling upward consensus to shape ZDAO’s direction.",
             ],
             nodeName: "Complete_human_anatomy/Nervous_Subgroup/ZCenter_Part",

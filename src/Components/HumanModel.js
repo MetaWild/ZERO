@@ -5,7 +5,6 @@ import * as THREE from "three";
 import { systems } from "./systems";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
-// --- Utility Functions ---
 function findNodeByPath(root, path) {
   if (!root || !path) return root;
   const parts = path.split("/");
@@ -19,9 +18,7 @@ function findNodeByPath(root, path) {
 
 function cloneWithWorldTransform(node) {
   if (!node) return null;
-  // 1. Clone
   const cloned = clone(node);
-  // 2. Bake world matrix into local
   node.updateWorldMatrix(true, false);
   cloned.matrix.copy(node.matrixWorld);
   cloned.matrixAutoUpdate = false;
@@ -31,8 +28,14 @@ function cloneWithWorldTransform(node) {
   return cloned;
 }
 
-// --- Interactive/Highlightable Meshes ---
-function InteractiveMesh({ node, highlight, onPointerOver, onPointerOut, onClick, interactive = true }) {
+function InteractiveMesh({
+  node,
+  highlight,
+  onPointerOver,
+  onPointerOut,
+  onClick,
+  interactive = true,
+}) {
   useEffect(() => {
     node.traverse((child) => {
       if (child.isMesh) {
@@ -56,7 +59,6 @@ function InteractiveMesh({ node, highlight, onPointerOver, onPointerOut, onClick
   );
 }
 
-// --- Main Exported Component ---
 export default function HumanModel({
   setHoveredPart,
   setSelectedPart,
@@ -75,7 +77,10 @@ export default function HumanModel({
   useGLTF.preload(glbPath);
 
   const groupRef = useRef();
-  const targetVec = useMemo(() => new THREE.Vector3(...targetPosition), [targetPosition]);
+  const targetVec = useMemo(
+    () => new THREE.Vector3(...targetPosition),
+    [targetPosition]
+  );
   useFrame(() => {
     if (groupRef.current) {
       groupRef.current.position.lerp(targetVec, 0.15);
@@ -84,7 +89,6 @@ export default function HumanModel({
 
   const canInteract = !transitioning;
 
-  // Pre-bake all possible nodes
   const unifiedNode = useMemo(() => {
     if (!isUnified) return null;
     return cloneWithWorldTransform(scene);
@@ -100,15 +104,15 @@ export default function HumanModel({
 
   const partNode = useMemo(() => {
     if (!partNodeName) return null;
-    // Find by searching in all systems
     for (const system of Object.values(systems.fullBody.systems)) {
-      const part = system.parts && Object.values(system.parts).find((p) => p.nodeName === partNodeName);
+      const part =
+        system.parts &&
+        Object.values(system.parts).find((p) => p.nodeName === partNodeName);
       if (part) {
         const node = findNodeByPath(scene, part.nodeName);
         return cloneWithWorldTransform(node);
       }
     }
-    // Fallback: try path directly
     const node = findNodeByPath(scene, partNodeName);
     return cloneWithWorldTransform(node);
   }, [scene, partNodeName]);
@@ -122,7 +126,6 @@ export default function HumanModel({
     });
   }, [scene, systemIndex, partNodeName]);
 
-  // Rendering (all nodes will be at correct position in world)
   return (
     <group ref={groupRef} position={position} scale={[6, 6, 6]}>
       {/* Unified (full body) view */}
@@ -144,7 +147,9 @@ export default function HumanModel({
           highlight={hoveredPart === systemIndex}
           onPointerOver={() => canInteract && setHoveredPart(systemIndex)}
           onPointerOut={() => canInteract && setHoveredPart(null)}
-          onClick={() => canInteract && setSelectedPart && setSelectedPart(null)}
+          onClick={() =>
+            canInteract && setSelectedPart && setSelectedPart(null)
+          }
           interactive={true}
         />
       )}
@@ -177,13 +182,13 @@ export default function HumanModel({
 
       {/* Focused part view: only the selected part */}
       {/* Focused part view: only the selected part, not hoverable/clickable */}
-{partNodeName && partNode && (
-  <InteractiveMesh
-    node={partNode}
-    highlight={false}
-    interactive={false}
-  />
-)}
+      {partNodeName && partNode && (
+        <InteractiveMesh
+          node={partNode}
+          highlight={false}
+          interactive={false}
+        />
+      )}
     </group>
   );
 }

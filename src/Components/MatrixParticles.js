@@ -1,12 +1,15 @@
-// MatrixParticles.js
-import { useMemo, useRef, useState, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
-import * as THREE from 'three';
+import { useMemo, useRef, useState, useEffect } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
+import * as THREE from "three";
 
-const glyphs = '|';
+const glyphs = "|";
 
-export default function MatrixParticles({ count = 150, velocityFactor = 0.01, despawnRate = 1 }) {
+export default function MatrixParticles({
+  count = 150,
+  velocityFactor = 0.01,
+  despawnRate = 1,
+}) {
   const glyphRefs = useRef([]);
   const trailRefs = useRef([]);
   const bounds = 52;
@@ -39,7 +42,11 @@ export default function MatrixParticles({ count = 150, velocityFactor = 0.01, de
 
       ref.position.y -= glyphData.velocity;
       if (trail) {
-        trail.position.set(ref.position.x, ref.position.y + 1.2, ref.position.z);
+        trail.position.set(
+          ref.position.x,
+          ref.position.y + 1.2,
+          ref.position.z
+        );
         trail.scale.set(0.1, 1.5, 0.1);
       }
 
@@ -55,7 +62,12 @@ export default function MatrixParticles({ count = 150, velocityFactor = 0.01, de
     if (elapsed >= 1 / despawnRate) {
       setElapsed(0);
       const eligible = glyphRefs.current
-        .map((ref, i) => ({ ref, trail: trailRefs.current[i], data: initialGlyphs[i], index: i }))
+        .map((ref, i) => ({
+          ref,
+          trail: trailRefs.current[i],
+          data: initialGlyphs[i],
+          index: i,
+        }))
         .filter(({ ref }) => ref && ref.position.y < quarterY);
 
       if (eligible.length > 0) {
@@ -112,4 +124,4 @@ export default function MatrixParticles({ count = 150, velocityFactor = 0.01, de
       ))}
     </>
   );
-} 
+}
